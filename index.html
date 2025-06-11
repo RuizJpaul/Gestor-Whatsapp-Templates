@@ -6,6 +6,10 @@
     <title>Gestor de Plantillas WhatsApp</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Ubuntu+Mono:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
 </head>
 <body class="bg-gradient-to-br from-green-50 to-emerald-100 min-h-screen">
     <div class="container mx-auto max-w-6xl px-4 py-8">
@@ -65,7 +69,7 @@
                             Mensaje de la Plantilla
                         </label>
                         <textarea 
-                            id="template-message"
+                            id="template-message-editor"
                             rows="6"
                             placeholder="Escribe aquí el contenido de tu plantilla de WhatsApp..."
                             class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-purple-500 transition duration-300 bg-gray-50 hover:bg-white resize-none"
@@ -89,14 +93,6 @@
                             <i class="fas fa-save"></i>
                             <span>Guardar Plantilla</span>
                         </button>
-                        <button 
-                            type="button"
-                            id="clear-form-btn"
-                            class="px-6 py-3 bg-gray-500 text-white rounded-lg hover:bg-gray-600 transition duration-300 flex items-center justify-center gap-2 font-medium shadow-md hover:shadow-lg"
-                        >
-                            <i class="fas fa-eraser"></i>
-                            <span>Limpiar</span>
-                        </button>
                     </div>
                 </form>
             </div>
@@ -111,26 +107,26 @@
                 </div>
 
                 <!-- Simulador de WhatsApp -->
-                <div class="bg-gray-100 rounded-lg p-4 max-w-sm mx-auto">
+                <div class="bg-gray-100 rounded-lg p-4 max-w-sm h-[90%] mx-auto">
                     <div class="bg-green-500 text-white p-3 rounded-t-lg flex items-center gap-3">
                         <div class="w-8 h-8 bg-white rounded-full flex items-center justify-center">
                             <i class="fas fa-user text-green-500 text-sm"></i>
                         </div>
                         <div>
-                            <div class="font-medium text-sm">Tu Empresa</div>
+                            <div class="font-medium text-lg">McDonald's</div>
                             <div class="text-xs opacity-90">en línea</div>
                         </div>
                     </div>
                     
-                    <div class="bg-white p-4 rounded-b-lg min-h-[200px]">
-                        <div id="preview-content" class="text-gray-400 text-sm italic">
-                            La vista previa aparecerá aquí mientras escribes...
+                    <div class="bg-white p-4 rounded-b-lg h-[80%]">
+                        <div id="preview-content" class="h-full text-black-400 text-base italic">
+                            <textarea name="" id="template-message-view" class="w-full bg-white h-[80%] resize-none" placeholder="La vista previa aparecerá aquí mientras escribes..." disabled></textarea>
                         </div>
                     </div>
                 </div>
 
                 <!-- Info adicional -->
-                <div class="mt-6 p-4 bg-blue-50 rounded-lg border border-blue-200">
+                <!-- <div class="mt-6 p-4 bg-blue-50 rounded-lg border border-blue-200">
                     <h4 class="font-medium text-blue-800 mb-2">
                         <i class="fas fa-lightbulb mr-2"></i>
                         Consejos para plantillas efectivas:
@@ -141,7 +137,7 @@
                         <li>• Incluye llamadas a la acción claras</li>
                         <li>• Organiza con hashtags por categoría</li>
                     </ul>
-                </div>
+                </div> -->
             </div>
         </div>
 
@@ -180,54 +176,13 @@
 
             <!-- Lista de plantillas -->
             <div id="templates-container" class="space-y-4">
-                <!-- Plantilla de ejemplo 1 -->
-                <div class="bg-gray-50 rounded-lg p-6 border border-gray-200 hover:border-purple-300 transition duration-300 hover:shadow-md">
-                    <div class="flex flex-col lg:flex-row lg:items-start gap-4">
-                        <div class="flex-1">
-                            <div class="flex items-start justify-between mb-3">
-                                <div>
-                                    <h3 class="text-lg font-semibold text-gray-800 mb-1">Mensaje de Bienvenida</h3>
-                                    <div class="flex gap-2 mb-2">
-                                        <span class="inline-block bg-green-100 text-green-800 text-xs px-2 py-1 rounded-full">#bienvenida</span>
-                                        <span class="inline-block bg-blue-100 text-blue-800 text-xs px-2 py-1 rounded-full">#nuevos-clientes</span>
-                                    </div>
-                                </div>
-                                <div class="text-xs text-gray-500">
-                                    <i class="fas fa-calendar mr-1"></i>
-                                    Creado hace 2 días
-                                </div>
-                            </div>
-                            
-                            <div class="bg-white p-4 rounded-lg border border-gray-200 mb-4">
-                                <p class="text-gray-700 text-sm leading-relaxed">
-                                    ¡Hola {nombre}! 👋<br><br>
-                                    Bienvenido/a a {empresa}. Estamos emocionados de tenerte como parte de nuestra comunidad.<br><br>
-                                    Si tienes alguna pregunta, no dudes en contactarnos. ¡Estamos aquí para ayudarte!<br><br>
-                                    Saludos cordiales,<br>
-                                    El equipo de {empresa}
-                                </p>
-                            </div>
-                        </div>
-                        
-                        <div class="flex flex-row lg:flex-col gap-2 lg:ml-4">
-                            <button class="px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition duration-300 flex items-center gap-2 text-sm">
-                                <i class="fas fa-copy"></i>
-                                <span class="hidden sm:inline">Copiar</span>
-                            </button>
-                            <button class="px-4 py-2 bg-green-500 text-white rounded-lg hover:bg-green-600 transition duration-300 flex items-center gap-2 text-sm">
-                                <i class="fas fa-edit"></i>
-                                <span class="hidden sm:inline">Editar</span>
-                            </button>
-                            <button class="px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600 transition duration-300 flex items-center gap-2 text-sm">
-                                <i class="fas fa-trash"></i>
-                                <span class="hidden sm:inline">Eliminar</span>
-                            </button>
-                        </div>
-                    </div>
-                </div>
-
-            
-                
+            </div>
+            <div class="flex justify-center py-10">
+                <button
+                    type="button"
+                    id="btn-limpiarStorage"
+                    class="px-6 py-3 bg-gray-500 text-white rounded-lg hover:bg-gray-600 transition duration-300 flex items-center justify-center gap-2 font-medium shadow-md hover:shadow-lg"> Borrar plantillas
+                </button>
             </div>
 
             <!-- Estado vacío -->

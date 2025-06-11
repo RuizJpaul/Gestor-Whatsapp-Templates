@@ -24,15 +24,19 @@ function createStore(initialStore = []) {
       setState(newState)
    }
 
-   function suscribe(listener){
-    listeners.push(listener);
+   function clearStorage(){
+      setState([]);
+   }
 
-    return ()=> {
-        const index = listeners.indexOf(listener);
-        if(index > -1){
+   function suscribe(listener){
+      listeners.push(listener);
+
+      return ()=> {
+         const index = listeners.indexOf(listener);
+         if(index > -1){
          listeners.splice(index,1);
-        }
-    }
+         }
+      }
    }
 
    return {
@@ -40,6 +44,7 @@ function createStore(initialStore = []) {
       addTemplate,
       setState,
       suscribe,
+      clearStorage,
    }
 }
 
